@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- FIX 2: Enable zoom on mobile -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-<title>Sofanit - Professional Study App</title>
+<!-- FIX: Prevent zooming/flickering issues -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>YDL</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -33,7 +33,7 @@
     width: 100%;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: none;
-    touch-action: manipulation;
+    touch-action: pan-y pinch-zoom;
   }
 
   @supports (-webkit-touch-callout: none) {
@@ -45,15 +45,20 @@
   /* Prevent body scrolling when modals are open */
   body.modal-open {
     overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
   }
 
-  /* Main container */
+  /* ========== UPDATE 1: Responsive Design for Larger Screens ========== */
+  /* Main container - updated for larger screens */
   .main-container {
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
   }
 
+  /* Responsive card sizing */
   .card-container {
     display: flex;
     justify-content: center;
@@ -61,13 +66,14 @@
     width: 100%;
   }
 
+  /* ========== UPDATE 2: Increased height by 50px ========== */
   .card {
     display: flex;
     flex-direction: column;
     position: relative;
     width: 100%;
     max-width: 500px;
-    min-height: 680px;
+    min-height: 730px; /* Increased from 680px to 730px (+50px) */
     height: auto;
     max-height: 90vh;
     border-radius: 24px;
@@ -85,6 +91,197 @@
     box-shadow: 0 20px 40px rgba(0, 119, 255, 0.25),
                 0 10px 20px rgba(0, 119, 255, 0.15),
                 inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  
+  /* ========== LARGER SCREEN ADJUSTMENTS ========== */
+  /* For tablets (min-width: 768px) */
+  @media (min-width: 768px) {
+    .card {
+      max-width: 700px;
+      min-height: 770px; /* Increased from 720px to 770px (+50px) */
+    }
+    
+    .card-header {
+      height: 120px;
+      min-height: 120px;
+      font-size: 1.5rem;
+    }
+    
+    .grid-cols-5 {
+      grid-template-columns: repeat(6, 1fr) !important;
+    }
+    
+    .grid-cols-2 {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .subject-btn {
+      height: 110px;
+      font-size: 1.2rem;
+    }
+    
+    .level-btn {
+      height: 75px;
+      padding: 14px 10px;
+    }
+    
+    /* Adjust scroll containers for larger screens */
+    #levelsScrollContainer,
+    .levels-scrollable-container {
+      max-height: 400px !important;
+    }
+    
+    .admin-dashboard-scroll-container {
+      max-height: 500px !important;
+    }
+    
+    .welcome-scroll-container,
+    .student-profile-scroll-container {
+      max-height: 450px !important;
+    }
+  }
+  
+  /* For laptops and desktops (min-width: 1024px) */
+  @media (min-width: 1024px) {
+    body {
+      padding: 30px;
+    }
+    
+    .card {
+      max-width: 900px;
+      min-height: 800px; /* Increased from 750px to 800px (+50px) */
+    }
+    
+    .card-header {
+      height: 130px;
+      min-height: 130px;
+      font-size: 1.7rem;
+      padding: 20px;
+    }
+    
+    .card-content {
+      padding: 25px 30px;
+    }
+    
+    .grid-cols-5 {
+      grid-template-columns: repeat(8, 1fr) !important;
+    }
+    
+    .grid-cols-2 {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+    
+    .subject-btn {
+      height: 120px;
+      font-size: 1.3rem;
+    }
+    
+    .level-btn {
+      height: 80px;
+      padding: 16px 12px;
+      font-size: 0.95rem;
+    }
+    
+    /* Larger scroll containers */
+    #levelsScrollContainer,
+    .levels-scrollable-container {
+      max-height: 450px !important;
+    }
+    
+    .admin-dashboard-scroll-container {
+      max-height: 550px !important;
+    }
+    
+    .welcome-scroll-container,
+    .student-profile-scroll-container {
+      max-height: 500px !important;
+    }
+    
+    /* FIX 1: Centered admin tools grid for large screens */
+    .admin-tools-grid {
+      grid-template-columns: repeat(5, 1fr) !important;
+      justify-content: center;
+      margin: 0 auto;
+      max-width: 800px;
+    }
+    
+    .admin-tool-btn {
+      height: 80px;
+      font-size: 13px;
+      margin: 0 auto;
+    }
+    
+    /* Adjust modal sizes */
+    .modal-content {
+      max-width: 700px;
+    }
+    
+    .modal-expanded {
+      max-width: 1000px !important;
+    }
+  }
+  
+  /* For large desktops (min-width: 1440px) */
+  @media (min-width: 1440px) {
+    .card {
+      max-width: 1000px;
+      min-height: 850px; /* Increased from 800px to 850px (+50px) */
+    }
+    
+    .card-header {
+      height: 140px;
+      min-height: 140px;
+      font-size: 1.9rem;
+    }
+    
+    .grid-cols-5 {
+      grid-template-columns: repeat(10, 1fr) !important;
+    }
+    
+    .grid-cols-2 {
+      grid-template-columns: repeat(5, 1fr) !important;
+    }
+    
+    /* FIX 1: Centered admin tools for very large screens */
+    .admin-tools-grid {
+      grid-template-columns: repeat(5, 1fr) !important;
+      max-width: 900px;
+      margin: 0 auto;
+      justify-content: center;
+    }
+  }
+  
+  /* For very large screens (min-width: 1920px) */
+  @media (min-width: 1920px) {
+    .main-container {
+      max-width: 1600px;
+    }
+    
+    .card {
+      max-width: 1200px;
+      min-height: 900px; /* Increased from 850px to 900px (+50px) */
+    }
+    
+    .card-header {
+      height: 150px;
+      font-size: 2rem;
+    }
+    
+    .grid-cols-5 {
+      grid-template-columns: repeat(12, 1fr) !important;
+    }
+    
+    .grid-cols-2 {
+      grid-template-columns: repeat(6, 1fr) !important;
+    }
+    
+    /* FIX 1: Centered admin tools for extra large screens */
+    .admin-tools-grid {
+      grid-template-columns: repeat(5, 1fr) !important;
+      max-width: 1000px;
+      margin: 0 auto;
+      justify-content: center;
+    }
   }
   
   .card-header {
@@ -113,6 +310,100 @@
     flex-direction: column;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.7);
+  }
+
+  /* ========== UPDATE 3: Sign Out Button Styling ========== */
+  .sign-out-button {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(255, 107, 107, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+  }
+  
+  .sign-out-button:hover {
+    background: linear-gradient(135deg, #ff5252, #ff7b7b);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 107, 107, 0.3);
+  }
+  
+  .sign-out-button:active {
+    transform: translateY(0);
+  }
+  
+  .sign-out-button-small {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 150, 255, 0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    color: #ff6b6b;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0, 119, 255, 0.15);
+  }
+  
+  .sign-out-button-small:hover {
+    background: white;
+    transform: translateX(3px);
+    box-shadow: 0 4px 12px rgba(0, 119, 255, 0.25);
+    color: #ff5252;
+  }
+  
+  /* Back button styling - Updated to accommodate sign out button */
+  .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 150, 255, 0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    color: #0077ff;
+    font-size: 18px;
+    box-shadow: 0 2px 8px rgba(0, 119, 255, 0.15);
+  }
+
+  .back-button:hover {
+    background: white;
+    transform: translateX(-3px);
+    box-shadow: 0 4px 12px rgba(0, 119, 255, 0.25);
+  }
+  
+  /* Adjust for sign out button */
+  .has-sign-out .back-button {
+    left: 20px;
+  }
+  
+  .has-sign-out .sign-out-button-small {
+    right: 20px;
   }
 
   /* ACCORDION STYLES */
@@ -280,11 +571,51 @@
     flex-direction: column;
     border: 1px solid rgba(0, 150, 255, 0.2);
     animation: modalAppear 0.3s ease-out;
+    transform-origin: center;
+    touch-action: pan-y pinch-zoom;
+    -webkit-overflow-scrolling: touch;
   }
 
   @keyframes modalAppear {
     0% { transform: scale(0.95); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
+  }
+  
+  /* FIX 4: Resource Uploader specific sizing to match app page */
+  #resourceUploaderModal .modal-content {
+    width: 95%;
+    max-width: 500px;
+    min-height: 680px;
+    height: 90vh;
+    max-height: 90vh;
+  }
+
+  @media (min-width: 768px) {
+    #resourceUploaderModal .modal-content {
+      max-width: 700px;
+      min-height: 720px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    #resourceUploaderModal .modal-content {
+      max-width: 900px;
+      min-height: 750px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    #resourceUploaderModal .modal-content {
+      max-width: 1000px;
+      min-height: 800px;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    #resourceUploaderModal .modal-content {
+      max-width: 1200px;
+      min-height: 850px;
+    }
   }
   
   /* Custom Scrollbar Styles */
@@ -378,6 +709,30 @@
     border-radius: 8px;
   }
 
+  /* CRITICAL FIX: Shorter scrollbar for Resource Uploader and Subject Management */
+  #resourceUploaderModal .modal-body::-webkit-scrollbar,
+  #subjectManagementModal .modal-body::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  #resourceUploaderModal .modal-body::-webkit-scrollbar-track,
+  #subjectManagementModal .modal-body::-webkit-scrollbar-track {
+    background: rgba(0, 119, 255, 0.08) !important;
+    border-radius: 4px !important;
+  }
+
+  #resourceUploaderModal .modal-body::-webkit-scrollbar-thumb,
+  #subjectManagementModal .modal-body::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #0066cc, #0088ff) !important;
+    border-radius: 4px !important;
+  }
+
+  #resourceUploaderModal .modal-body::-webkit-scrollbar-thumb:hover,
+  #subjectManagementModal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #0055aa, #0077ee) !important;
+  }
+
   /* Expandable Modal */
   .modal-expanded {
     width: 95% !important;
@@ -414,6 +769,7 @@
     overflow-x: hidden;
     padding-right: 10px;
     margin-bottom: 15px;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* Level three dots menu */
@@ -541,18 +897,19 @@
     border-bottom: none;
   }
   
-  /* GLOBAL Resource Menu */
+  /* GLOBAL Resource Menu - FIXED POSITIONING */
   #globalResourceMenu {
-    position: fixed; 
+    position: fixed !important;
     background: linear-gradient(135deg, #ffffff, #f5fbff);
     border: 1px solid rgba(0, 150, 255, 0.2);
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 100, 200, 0.25);
-    z-index: 99999; 
+    z-index: 99999 !important;
     display: none;
     width: 150px;
     overflow: hidden;
     backdrop-filter: blur(10px);
+    transform-origin: top right;
   }
 
   #globalResourceMenu button {
@@ -605,7 +962,7 @@
     box-shadow: 0 5px 15px rgba(0, 119, 255, 0.1);
   }
   
-  /* Three dots menu styling */
+  /* Three dots menu styling - FIXED POSITIONING */
   .three-dots-menu {
     position: relative;
     background: rgba(0, 150, 255, 0.1);
@@ -630,7 +987,7 @@
     transform: scale(1.1);
   }
   
-  /* FIX: Subject three dots menu */
+  /* FIX: Subject three dots menu - FIXED POSITIONING */
   .subject-three-dots {
     position: relative;
     background: rgba(0, 150, 255, 0.1);
@@ -653,6 +1010,46 @@
     background: rgba(0, 150, 255, 0.2);
     border-color: rgba(0, 150, 255, 0.3);
     transform: scale(1.1);
+  }
+  
+  /* SUBJECT DROPDOWN MENU - FIXED POSITIONING */
+  .subject-dropdown-menu {
+    position: fixed !important;
+    background: white;
+    border: 1px solid rgba(0, 150, 255, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 100, 200, 0.2);
+    z-index: 10000 !important;
+    min-width: 120px;
+    overflow: hidden;
+    transform-origin: top right;
+  }
+  
+  .subject-dropdown-menu button {
+    width: 100%;
+    text-align: left;
+    padding: 10px 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.2s ease;
+  }
+
+  .subject-dropdown-menu button:hover {
+    background: rgba(0, 150, 255, 0.1);
+  }
+
+  .subject-dropdown-menu button.edit-btn {
+    color: #0077ff;
+  }
+
+  .subject-dropdown-menu button.delete-btn {
+    color: #dc3545;
   }
   
   .option-three-dots {
@@ -834,6 +1231,9 @@
     background: rgba(255, 255, 255, 0.9);
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 119, 255, 0.05);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
 
   .input-field:focus {
@@ -869,19 +1269,21 @@
     margin-top: 20px;
   }
 
-  /* Resource Uploader specific */
+  /* FIXED: Resource Uploader specific - NO MORE HOVER LAYOUT SHIFT */
   .resource-section {
     background: linear-gradient(to right, #f7fbff, #eef7ff);
     border: 2px dashed rgba(0, 150, 255, 0.3);
     border-radius: 12px;
     padding: 15px;
     margin-bottom: 15px;
-    transition: all 0.3s ease;
+    transition: border-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
   }
 
   .resource-section:hover {
     border-color: rgba(0, 150, 255, 0.5);
-    background: linear-gradient(to right, #eef7ff, #e6f2ff);
+    /* Removed background change to prevent layout shift */
   }
 
   .resource-section label {
@@ -902,6 +1304,9 @@
     padding: 10px 14px;
     font-size: 14px;
     background: rgba(255, 255, 255, 0.9);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
 
   .consistent-input:focus {
@@ -996,33 +1401,6 @@
     max-width: 400px;
   }
 
-  /* Back button styling */
-  .back-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 150, 255, 0.3);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.3s ease;
-    color: #0077ff;
-    font-size: 18px;
-    box-shadow: 0 2px 8px rgba(0, 119, 255, 0.15);
-  }
-
-  .back-button:hover {
-    background: white;
-    transform: translateX(-3px);
-    box-shadow: 0 4px 12px rgba(0, 119, 255, 0.25);
-  }
-
   /* FIX 7: Updated footer styling for side-by-side buttons on all screens */
   #adminFooter {
     padding: 15px 20px;
@@ -1070,45 +1448,6 @@
     box-shadow: 0 6px 15px rgba(0, 119, 255, 0.15);
   }
 
-  /* Subject page dropdown menu */
-  .subject-dropdown-menu {
-    position: fixed;
-    background: white;
-    border: 1px solid rgba(0, 150, 255, 0.2);
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 100, 200, 0.2);
-    z-index: 10000;
-    min-width: 120px;
-    overflow: hidden;
-  }
-
-  .subject-dropdown-menu button {
-    width: 100%;
-    text-align: left;
-    padding: 10px 15px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: #333;
-    transition: all 0.2s ease;
-  }
-
-  .subject-dropdown-menu button:hover {
-    background: rgba(0, 150, 255, 0.1);
-  }
-
-  .subject-dropdown-menu button.edit-btn {
-    color: #0077ff;
-  }
-
-  .subject-dropdown-menu button.delete-btn {
-    color: #dc3545;
-  }
-
   /* Manual exam creator options - FIX 6 */
   .manual-option-input {
     display: flex;
@@ -1127,11 +1466,13 @@
     flex: 1;
   }
 
-  /* FIX 3: Equal size admin tools */
+  /* FIX 1: Centered admin tools grid for all screens */
   .admin-tools-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
+    justify-content: center;
+    margin: 0 auto;
   }
 
   .admin-tool-btn {
@@ -1149,26 +1490,178 @@
     width: 100%;
   }
 
-  /* Responsive adjustments */
+  /* ========== UPDATE 2: Audio Player Styles ========== */
+  .audio-player-container {
+    background: linear-gradient(to right, #f3e5f5, #e8eaf6);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 2px dashed rgba(156, 39, 176, 0.3);
+  }
+
+  .audio-player {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #ffffff, #f9f9f9);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .audio-player::-webkit-media-controls-panel {
+    background: linear-gradient(to right, #ffffff, #f9f9f9);
+    border-radius: 8px;
+  }
+
+  .audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .audio-control-btn {
+    background: linear-gradient(135deg, #9c27b0, #673ab7);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 15px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .audio-control-btn:hover {
+    background: linear-gradient(135deg, #8e24aa, #5e35b1);
+    transform: translateY(-2px);
+  }
+
+  .audio-progress {
+    flex-grow: 1;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .audio-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #9c27b0, #673ab7);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.1s;
+  }
+
+  .audio-time {
+    font-size: 11px;
+    color: #666;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  /* Audio resource item styling */
+  .audio-resource-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(156, 39, 176, 0.1);
+    font-size: 0.8rem;
+    position: relative;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+    background: white;
+  }
+
+  .audio-resource-item:hover {
+    background: rgba(156, 39, 176, 0.05);
+    transform: translateX(5px);
+  }
+
+  /* NEW: Centered modal grid container for equal spacing */
+  .modal-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .modal-grid-container {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+
+  /* CRITICAL FIX: Prevent zooming/flickering on specific pages */
+  #resourceUploaderModal,
+  #subjectManagementModal {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+
+  #resourceUploaderModal .modal-content,
+  #subjectManagementModal .modal-content {
+    transform: translateZ(0);
+    will-change: transform;
+    contain: layout style paint;
+  }
+
+  #resourceUploaderModal input,
+  #resourceUploaderModal textarea,
+  #resourceUploaderModal select,
+  #subjectManagementModal input,
+  #subjectManagementModal textarea,
+  #subjectManagementModal select {
+    font-size: 16px !important;
+    transform: translateZ(0);
+  }
+
+  /* CRITICAL FIX: Stabilize modal content to prevent zoom flickering */
+  .modal-stable {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Responsive adjustments - KEEP EXISTING MOBILE STYLES */
   @media (max-width: 1024px) {
     .card {
       max-width: 95%;
-      min-height: 650px;
+      min-height: 700px; /* Increased from 650px to 700px (+50px) */
     }
     
     .grid-cols-5 {
       grid-template-columns: repeat(3, 1fr);
     }
+    
+    /* FIX 1: Center admin tools on medium screens */
+    .admin-tools-grid {
+      justify-content: center;
+      max-width: 100%;
+    }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
+    /* Keep all existing mobile styles */
     body {
       padding: 15px;
     }
     
     .card {
       max-width: 100%;
-      min-height: 600px;
+      min-height: 650px; /* Increased from 600px to 650px (+50px) */
       border-radius: 20px;
     }
     
@@ -1242,6 +1735,28 @@
       max-height: 250px;
     }
     
+    /* Sign out button adjustments for mobile */
+    .sign-out-button {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      top: 15px;
+      right: 15px;
+    }
+    
+    .sign-out-button-small {
+      width: 35px;
+      height: 35px;
+      top: 12px;
+      right: 12px;
+    }
+    
+    .back-button {
+      top: 15px;
+      left: 15px;
+      width: 35px;
+      height: 35px;
+    }
+    
     /* FIX 7: Keep footer buttons side by side */
     .footer-buttons-container {
       flex-direction: row;
@@ -1252,9 +1767,11 @@
       font-size: 12px;
     }
     
-    /* Admin tools grid for mobile */
+    /* FIX 1: Admin tools grid for mobile */
     .admin-tools-grid {
       grid-template-columns: repeat(3, 1fr);
+      justify-content: center;
+      max-width: 100%;
     }
   }
 
@@ -1264,7 +1781,7 @@
     }
     
     .card {
-      min-height: 580px;
+      min-height: 630px; /* Increased from 580px to 630px (+50px) */
       border-radius: 18px;
     }
     
@@ -1324,9 +1841,11 @@
       font-size: 12px;
     }
     
-    /* Admin tools grid for small screens */
+    /* FIX 1: Admin tools grid for small screens */
     .admin-tools-grid {
       grid-template-columns: repeat(2, 1fr);
+      justify-content: center;
+      max-width: 100%;
     }
     
     .admin-tool-btn {
@@ -1342,7 +1861,7 @@
     }
     
     .card {
-      min-height: 550px;
+      min-height: 600px; /* Increased from 550px to 600px (+50px) */
       border-radius: 16px;
     }
     
@@ -1415,6 +1934,30 @@
       max-height: 120px !important;
     }
     
+    /* Sign out button adjustments for very small screens */
+    .sign-out-button {
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      top: 12px;
+      right: 12px;
+    }
+    
+    .sign-out-button-small {
+      width: 32px;
+      height: 32px;
+      top: 10px;
+      right: 10px;
+      font-size: 14px;
+    }
+    
+    .back-button {
+      top: 12px;
+      left: 12px;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+    }
+    
     /* FIX 7: Further adjustments for very small screens */
     .footer-buttons-container button {
       padding: 8px 4px;
@@ -1427,9 +1970,11 @@
       margin-right: 3px;
     }
     
-    /* Admin tools grid for very small screens */
+    /* FIX 1: Admin tools grid for very small screens */
     .admin-tools-grid {
       grid-template-columns: repeat(2, 1fr);
+      justify-content: center;
+      max-width: 100%;
     }
     
     .admin-tool-btn {
@@ -1459,6 +2004,24 @@
       padding: 8px 6px;
     }
     
+    /* Sign out button adjustments for smallest screens */
+    .sign-out-button {
+      padding: 4px 8px;
+      font-size: 0.7rem;
+    }
+    
+    .sign-out-button-small {
+      width: 30px;
+      height: 30px;
+      font-size: 13px;
+    }
+    
+    .back-button {
+      width: 30px;
+      height: 30px;
+      font-size: 15px;
+    }
+    
     /* FIX 7: Ensure buttons stay side by side even on smallest screens */
     .footer-buttons-container {
       flex-wrap: nowrap;
@@ -1470,13 +2033,55 @@
       padding: 6px 3px;
     }
     
-    /* Admin tools grid for smallest screens */
+    /* FIX 1: Admin tools grid for smallest screens */
     .admin-tools-grid {
       grid-template-columns: 1fr;
+      justify-content: center;
+      max-width: 100%;
     }
     
     .admin-tool-btn {
       height: 55px;
+    }
+  }
+  
+  /* FIX FOR MODAL FLICKERING/ZOOMING */
+  .modal-bg.active {
+    display: flex !important;
+  }
+  
+  .resource-section input[type="file"] {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* CRITICAL FIX: Additional stabilization for problematic modals */
+  #resourceUploaderModal .modal-body,
+  #subjectManagementModal .modal-body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+  }
+
+  /* Prevent iOS zoom on focus */
+  @media screen and (max-width: 768px) {
+    #resourceUploaderModal input,
+    #resourceUploaderModal textarea,
+    #resourceUploaderModal select,
+    #subjectManagementModal input,
+    #subjectManagementModal textarea,
+    #subjectManagementModal select {
+      font-size: 16px !important;
+      max-height: 44px !important;
+      line-height: 1.4 !important;
+    }
+    
+    #resourceUploaderModal .modal-content,
+    #subjectManagementModal .modal-content {
+      touch-action: pan-y;
     }
   }
 </style>
@@ -1532,7 +2137,7 @@
         <div id="quizTimerDisplay" class="text-base font-bold text-white bg-gradient-to-r from-green-400 to-blue-400 px-4 py-2 rounded-full shadow-lg hidden mb-2">
           01:00
         </div>
-        <div id="headerTitle" class="text-2xl font-extrabold tracking-wide text-center">AWA - Study - Vault !</div>
+        <div id="headerTitle" class="text-2xl font-extrabold tracking-wide text-center">Your Digital Library !</div>
       </div>
 
       <div class="card-content" id="quizApp"></div>
@@ -1541,7 +2146,7 @@
       <div id="passwordModal" class="modal-bg">
         <div class="modal-content transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
           <h4 id="modalTitle" class="modal-header text-xl font-bold text-gray-800">Admin Access</h4>
-          <input type="password" id="passwordInput" class="input-field mb-4 text-center" placeholder="Enter admin123">
+          <input type="password" id="passwordInput" class="input-field mb-4 text-center" placeholder="Enter admin password">
           <div class="flex justify-center space-x-3">
             <button type="button" onclick="closeModal()" class="btn-secondary px-6 py-3">Cancel</button>
             <button type="button" onclick="checkAdminPassword()" class="btn-primary px-6 py-3">Enter</button>
@@ -1570,7 +2175,7 @@
         </div>
       </div>
       
-      <!-- Subject Management Modal - FIX 4: Updated with three dots -->
+      <!-- Subject Management Modal - FIXED THREE DOTS POSITIONING -->
       <div id="subjectManagementModal" class="modal-bg">
         <div class="modal-content">
           <button class="expand-button" onclick="toggleModalExpand('subjectManagementModal')">
@@ -1606,7 +2211,7 @@
         </div>
       </div>
       
-      <!-- Bulk Uploader Modal -->
+      <!-- Bulk Uploader Modal - UPDATED WITH CENTERED GRID -->
       <div id="bulkUploaderModal" class="modal-bg">
         <div class="modal-content">
           <button class="expand-button" onclick="toggleModalExpand('bulkUploaderModal')">
@@ -1623,25 +2228,33 @@
               <input type="file" id="jsonFileInput" accept=".json" class="w-full p-2 border rounded-lg input-field">
             </div>
             
-            <div class="grid grid-cols-2 gap-3 mb-6">
-              <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-2">Subject</label>
-                  <div class="flex">
-                    <select id="uploadSubject" class="flex-grow p-3 text-sm border rounded-l-xl consistent-input">
-                      <!-- Subjects will be populated dynamically -->
-                    </select>
-                    <button type="button" onclick="openSubjectManagementFromUploader()" 
-                            class="btn-secondary p-3 rounded-r-xl text-xs" title="Manage Subjects">
-                      <i class="fas fa-cog"></i>
-                    </button>
-                  </div>
-              </div>
-              <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-2">Level</label>
-                  <select id="uploadLevel" class="w-full p-3 text-sm border rounded-xl consistent-input">
-                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
-                    <option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+            <!-- UPDATED: Centered grid for subject and level -->
+            <div class="modal-grid-container mb-6">
+              <div class="w-full">
+                <label class="block text-sm font-bold text-gray-700 mb-2">Subject</label>
+                <div class="flex w-full">
+                  <select id="uploadSubject" class="flex-grow p-3 text-sm border rounded-l-xl consistent-input">
+                    <!-- Subjects will be populated dynamically -->
                   </select>
+                  <button type="button" onclick="openSubjectManagementFromUploader()" 
+                          class="btn-secondary p-3 rounded-r-xl text-xs" title="Manage Subjects">
+                    <i class="fas fa-cog"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="w-full">
+                <label class="block text-sm font-bold text-gray-700 mb-2">Level</label>
+                <select id="uploadLevel" class="w-full p-3 text-sm border rounded-xl consistent-input">
+                  <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                  <option value="6">6</option><option value="7">7</option><option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                </select>
               </div>
             </div>
           </div>
@@ -1653,7 +2266,7 @@
         </div>
       </div>
       
-      <!-- Manual Exam Creator Modal - FIX 1 & 6 -->
+      <!-- Manual Exam Creator Modal - UPDATED WITH CENTERED GRID -->
       <div id="manualExamModal" class="modal-bg">
         <div class="modal-content">
           <button class="expand-button" onclick="toggleModalExpand('manualExamModal')">
@@ -1663,8 +2276,9 @@
           
           <div class="modal-body">
             <div class="mb-4">
-              <div class="grid grid-cols-2 gap-3 mb-4">
-                <div class="flex">
+              <!-- UPDATED: Centered grid for subject and level -->
+              <div class="modal-grid-container mb-4">
+                <div class="flex w-full">
                   <select id="manualSubject" class="flex-grow p-3 text-sm border rounded-l-xl consistent-input">
                     <!-- Subjects will be populated dynamically -->
                   </select>
@@ -1674,8 +2288,10 @@
                   </button>
                 </div>
                 <select id="manualLevel" class="w-full p-3 text-sm border rounded-xl consistent-input">
-                    <option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4</option><option value="5">Level 5</option>
-                    <option value="6">Level 6</option><option value="7">Level 7</option><option value="8">Level 8</option><option value="9">Level 9</option><option value="10">Level 10</option>
+                  <option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4</option><option value="5">Level 5</option>
+                  <option value="6">Level 6</option><option value="7">Level 7</option><option value="8">Level 8</option><option value="9">Level 9</option>
+                  <option value="10">Level 10</option><option value="11">Level 11</option><option value="12">Level 12</option><option value="13">Level 13</option>
+                  <option value="14">Level 14</option><option value="15">Level 15</option>
                 </select>
               </div>
               
@@ -1694,7 +2310,7 @@
         </div>
       </div>
       
-      <!-- Resource Uploader Modal -->
+      <!-- Resource Uploader Modal - UPDATED WITH CENTERED GRID AND FIXED HOVER -->
       <div id="resourceUploaderModal" class="modal-bg">
         <div class="modal-content">
           <button class="expand-button" onclick="toggleModalExpand('resourceUploaderModal')">
@@ -1704,8 +2320,9 @@
           
           <div class="modal-body">
             <div class="mb-4">
-              <div class="grid grid-cols-2 gap-3 mb-6">
-                <div class="flex">
+              <!-- UPDATED: Centered grid for subject and level -->
+              <div class="modal-grid-container mb-6">
+                <div class="flex w-full">
                   <select id="resourceSubject" class="flex-grow p-3 text-sm border rounded-l-xl consistent-input">
                     <!-- Subjects will be populated dynamically -->
                   </select>
@@ -1715,11 +2332,12 @@
                   </button>
                 </div>
                 <select id="resourceLevel" class="w-full p-3 text-sm border rounded-xl consistent-input">
-                    <option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4</option><option value="5">Level 5</option>
-                    <option value="6">Level 6</option><option value="7">Level 7</option><option value="8">Level 8</option><option value="9">Level 9</option><option value="10">Level 10</option>
+                  <option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4</option><option value="5">Level 5</option>
+                  <option value="6">Level 6</option><option value="7">Level 7</option><option value="8">Level 8</option><option value="9">Level 9</option><option value="10">Level 10</option>
                 </select>
               </div>
               
+              <!-- FIXED: Resource section with stable hover -->
               <div class="resource-section">
                 <label class="block text-sm font-bold text-gray-700 mb-3"><i class="fas fa-file-pdf mr-2 text-red-500"></i> Add Document (PDF/HTML/ZIP)</label>
                 <input type="file" id="pdfFileInput" accept=".pdf,.zip,.html,.htm" class="w-full p-3 text-sm input-field">
@@ -1730,9 +2348,18 @@
                 <input type="file" id="videoFileInput" accept="video/*" class="w-full p-3 text-sm input-field">
               </div>
               
+              <!-- ========== UPDATE 2: Audio File Upload Section ========== -->
+              <div class="resource-section">
+                <label class="block text-sm font-bold text-gray-700 mb-3"><i class="fas fa-music mr-2 text-purple-500"></i> Add Audio (MP3/WAV/OGG)</label>
+                <input type="file" id="audioFileInput" accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac" class="w-full p-3 text-sm input-field">
+                <div class="mt-3 text-xs text-purple-600 bg-purple-50 p-3 rounded-lg">
+                  <p><i class="fas fa-info-circle mr-2"></i> Supported formats: MP3, WAV, OGG, M4A, AAC. Max size: 50MB</p>
+                </div>
+              </div>
+              
               <!-- URL Management Section -->
               <div class="resource-section">
-                <label class="block text-sm font-bold text-gray-700 mb-3"><i class="fas fa-link mr-2 text-purple-500"></i> Add URL Links</label>
+                <label class="block text-sm font-bold text-gray-700 mb-3"><i class="fas fa-link mr-2 text-green-500"></i> Add URL Links</label>
                 <div id="urlInputsContainer">
                   <div class="url-input-container">
                     <input type="text" placeholder="URL Name" class="url-name-input consistent-input" value="">
@@ -1771,12 +2398,27 @@
 </div>
 
 <script>
-  // ==== FIX 2: Allow zoom on mobile devices ====
-  // Remove zoom prevention and enable pinch-to-zoom
-  function enableZoom() {
+// ************************************************************************************************
+/* ===== YDL LICENSE GUARD ===== */
+// (function licenseGuard() {
+//   const activated = localStorage.getItem("YDL_ACTIVATED");
+//   const license = localStorage.getItem("YDL_LICENSE");
+
+//   if (!activated || !license) {
+//     // IMPORTANT: redirect to a FILE, not a folder
+//     window.location.replace("/index.html#pricing");
+//     return;
+//   }
+// })();
+
+// **************************************************************************************************
+
+  // ==== FIX: Prevent zooming/flickering issues ====
+  // Disable zoom to prevent flickering
+  function disableZoom() {
     const viewportMeta = document.querySelector('meta[name="viewport"]');
     if (viewportMeta) {
-      viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes';
+      viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
     }
   }
   
@@ -1784,42 +2426,74 @@
   // Enhanced prevention for mobile zoom and blinking
   document.addEventListener('touchstart', function(event) {
     if (event.touches.length > 1) {
-      // Allow multi-touch for zooming
+      event.preventDefault();
     }
-  }, { passive: true });
+  }, { passive: false });
 
   let lastTouchEnd = 0;
   document.addEventListener('touchend', function(event) {
     const now = Date.now();
     if (now - lastTouchEnd <= 300) {
-      // Allow double-tap
+      event.preventDefault();
     }
     lastTouchEnd = now;
   }, false);
 
-  // Prevent double-tap zoom (but allow intentional zoom)
+  // Prevent double-tap zoom
   document.addEventListener('dblclick', function(e) {
-    // Allow double-tap
+    e.preventDefault();
   }, { passive: false });
 
-  // Force stable viewport on mobile - Allow zoom
+  // Force stable viewport on mobile - Disable zoom
   function setViewportProperties() {
     const viewport = document.querySelector('meta[name="viewport"]');
-    // Always allow zoom
-    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes');
+    // Disable zoom to prevent flickering
+    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
   }
 
   // Call on load and resize
   window.addEventListener('load', function() {
     setViewportProperties();
-    enableZoom();
+    disableZoom();
     // Prevent resize issues
     let resizeTimeout;
     window.addEventListener('resize', function() {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(setViewportProperties, 250);
     });
+    
+    // ========== UPDATE 1: Check screen size on load ==========
+    updateCardSizeForScreen();
+    window.addEventListener('resize', updateCardSizeForScreen);
   });
+
+  // ========== UPDATE 1: Function to update card size based on screen ==========
+  function updateCardSizeForScreen() {
+    const screenWidth = window.innerWidth;
+    const card = document.querySelector('.card');
+    const cardContainer = document.querySelector('.card-container');
+    
+    if (!card || !cardContainer) return;
+    
+    // For mobile screens (up to 767px) - keep original size
+    if (screenWidth <= 767) {
+      card.style.maxWidth = '500px';
+      card.style.minHeight = '730px';
+      cardContainer.style.justifyContent = 'center';
+    } 
+    // For tablets (768px to 1023px)
+    else if (screenWidth <= 1023) {
+      card.style.maxWidth = '90%';
+      card.style.minHeight = '770px';
+      cardContainer.style.justifyContent = 'center';
+    }
+    // For laptops and desktops (1024px and above)
+    else {
+      card.style.maxWidth = '900px';
+      card.style.minHeight = '800px';
+      cardContainer.style.justifyContent = 'center';
+    }
+  }
 
   // ==== ACCORDION FUNCTIONS ====
   function toggleAccordion(level) {
@@ -1846,7 +2520,7 @@
 
   // ==== INDEXEDDB HELPERS ====
   const DB_NAME = 'SofanitDB';
-  const DB_VERSION = 2;
+  const DB_VERSION = 3; // Updated version for audio support
   const STORE_NAME = 'resources';
 
   function openDB() {
@@ -1888,18 +2562,201 @@
       });
   }
 
+  // ========== UPDATE 2: Audio Player Functions ==========
+  function createAudioPlayer(audioId, audioName) {
+    const playerId = `audio-player-${audioId}`;
+    const controlsId = `audio-controls-${audioId}`;
+    
+    return `
+      <div class="audio-player-container">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center">
+            <i class="fas fa-music text-purple-500 mr-2"></i>
+            <span class="text-sm font-semibold text-gray-800 truncate">${audioName}</span>
+          </div>
+          <button onclick="playPauseAudio('${audioId}', '${playerId}', '${controlsId}')" 
+                  class="audio-control-btn play-btn" id="play-btn-${audioId}">
+            <i class="fas fa-play"></i> Play
+          </button>
+        </div>
+        <audio id="${playerId}" preload="metadata" class="audio-player">
+          <source src="" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <div class="audio-controls" id="${controlsId}">
+          <button onclick="rewindAudio('${audioId}', '${playerId}')" class="audio-control-btn">
+            <i class="fas fa-backward"></i>
+          </button>
+          <div class="audio-progress">
+            <div class="audio-progress-bar" id="progress-bar-${audioId}"></div>
+          </div>
+          <button onclick="forwardAudio('${audioId}', '${playerId}')" class="audio-control-btn">
+            <i class="fas fa-forward"></i>
+          </button>
+          <span class="audio-time" id="current-time-${audioId}">0:00</span>
+          <span class="audio-time">/</span>
+          <span class="audio-time" id="duration-${audioId}">0:00</span>
+          <button onclick="downloadAudio('${audioId}')" class="audio-control-btn">
+            <i class="fas fa-download"></i>
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  async function playAudioResource(audioId, audioName, subject, level) {
+    try {
+      const audioBlob = await getFileFromDB(audioId);
+      if (!audioBlob) {
+        alertMessage("Audio file not found in database", "bg-gradient-to-r from-red-500 to-pink-500");
+        return;
+      }
+      
+      const audioUrl = URL.createObjectURL(audioBlob);
+      
+      // Create modal for audio player
+      const modal = document.createElement('div');
+      modal.className = 'modal-bg';
+      modal.style.display = 'flex';
+      modal.style.zIndex = '2000';
+      
+      modal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+          <h4 class="modal-header text-xl font-bold text-gray-800">Audio Player</h4>
+          <div class="modal-body">
+            <div class="text-center mb-4">
+              <div class="inline-block p-4 rounded-2xl bg-gradient-to-r from-purple-100 to-pink-100 mb-4">
+                <i class="fas fa-music text-4xl text-purple-500"></i>
+              </div>
+              <h5 class="text-lg font-bold text-gray-800">${audioName}</h5>
+              <p class="text-sm text-gray-600">${subject} - Level ${level}</p>
+            </div>
+            ${createAudioPlayer(audioId, audioName)}
+          </div>
+          <div class="modal-footer">
+            <button type="button" onclick="this.closest('.modal-bg').remove()" class="btn-secondary w-full py-3">Close</button>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      
+      // Initialize audio player
+      setTimeout(() => {
+        const audioElement = document.getElementById(`audio-player-${audioId}`);
+        if (audioElement) {
+          audioElement.src = audioUrl;
+          
+          audioElement.addEventListener('loadedmetadata', function() {
+            const durationElement = document.getElementById(`duration-${audioId}`);
+            durationElement.textContent = formatTime(audioElement.duration);
+          });
+          
+          audioElement.addEventListener('timeupdate', function() {
+            updateAudioProgress(audioId, audioElement);
+          });
+          
+          audioElement.addEventListener('ended', function() {
+            const playBtn = document.getElementById(`play-btn-${audioId}`);
+            if (playBtn) {
+              playBtn.innerHTML = '<i class="fas fa-play"></i> Play';
+            }
+          });
+        }
+      }, 100);
+      
+    } catch (error) {
+      console.error('Error playing audio:', error);
+      alertMessage("Error playing audio file", "bg-gradient-to-r from-red-500 to-pink-500");
+    }
+  }
+
+  function playPauseAudio(audioId, playerId, controlsId) {
+    const audioElement = document.getElementById(playerId);
+    const playBtn = document.getElementById(`play-btn-${audioId}`);
+    
+    if (!audioElement) return;
+    
+    if (audioElement.paused) {
+      audioElement.play();
+      playBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+    } else {
+      audioElement.pause();
+      playBtn.innerHTML = '<i class="fas fa-play"></i> Play';
+    }
+  }
+
+  function rewindAudio(audioId, playerId) {
+    const audioElement = document.getElementById(playerId);
+    if (!audioElement) return;
+    
+    audioElement.currentTime = Math.max(0, audioElement.currentTime - 10);
+    updateAudioProgress(audioId, audioElement);
+  }
+
+  function forwardAudio(audioId, playerId) {
+    const audioElement = document.getElementById(playerId);
+    if (!audioElement) return;
+    
+    audioElement.currentTime = Math.min(audioElement.duration, audioElement.currentTime + 10);
+    updateAudioProgress(audioId, audioElement);
+  }
+
+  function updateAudioProgress(audioId, audioElement) {
+    const progressBar = document.getElementById(`progress-bar-${audioId}`);
+    const currentTimeElement = document.getElementById(`current-time-${audioId}`);
+    
+    if (progressBar && currentTimeElement && audioElement) {
+      const progress = (audioElement.currentTime / audioElement.duration) * 100;
+      progressBar.style.width = `${progress}%`;
+      currentTimeElement.textContent = formatTime(audioElement.currentTime);
+    }
+  }
+
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return "0:00";
+    
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  async function downloadAudio(audioId) {
+    try {
+      const audioBlob = await getFileFromDB(audioId);
+      if (!audioBlob) {
+        alertMessage("Audio file not found", "bg-gradient-to-r from-red-500 to-pink-500");
+        return;
+      }
+      
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const a = document.createElement('a');
+      a.href = audioUrl;
+      a.download = `audio-${audioId}.mp3`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(audioUrl);
+      
+      alertMessage("Audio download started", "bg-gradient-to-r from-green-500 to-teal-500");
+    } catch (error) {
+      console.error('Error downloading audio:', error);
+      alertMessage("Error downloading audio", "bg-gradient-to-r from-red-500 to-pink-500");
+    }
+  }
+
   // ==== GLOBAL VARIABLES ====
   let quizApp, headerTitle, timerDisplay;
   let isAuthenticated = false;
   let currentUser = null;
   let mockUsers = [];
-  const adminPassword = "admin123";
+  const adminPassword = "admin2121"; // FIX 2: Updated from "admin123" to "admin2121"
   
   // Storage keys
   const STORAGE_KEY = 'sofanit_users';
   const SETTINGS_KEY = 'sofanit_settings';
   const QUIZ_DATA_KEY = 'sofanit_quiz_data';
-  const RESOURCES_KEY = 'sofanit_resources_v3';
+  const RESOURCES_KEY = 'sofanit_resources_v4'; // Updated version for audio support
   const SUBJECTS_KEY = 'sofanit_subjects';
   
   // Quiz state
@@ -1944,8 +2801,8 @@
     isOpen: false
   };
 
-  // Default subjects
-  const DEFAULT_SUBJECTS = ["Math", "Reading", "Science", "Computer Science"];
+  // Default subjects - UPDATED TO MATCH THE IMAGE
+  const DEFAULT_SUBJECTS = ["Math", "English", "Science", "Computer", "Social", "Chemistry", "Chemical Engineering", "Social Science"];
 
   // Subject page state
   let subjectPageOpen = false;
@@ -2068,7 +2925,7 @@
         username: "admin",
         password: adminPassword,
         name: "Admin User",
-        email: "admin@sofanit.com",
+        email: "admin@sofanit.com", // RESTORED TO ORIGINAL EMAIL FROM IMAGE
         grade: "N/A",
         quizzesTaken: 0,
         lastAttempt: null,
@@ -2274,7 +3131,7 @@
     
     // Move resources
     if (resources[subject] && resources[subject][oldLevel]) {
-      if (!resources[subject][newLevel]) resources[subject][newLevel] = { pdfs: [], videos: [], urls: [] };
+      if (!resources[subject][newLevel]) resources[subject][newLevel] = { pdfs: [], videos: [], urls: [], audios: [] };
       resources[subject][newLevel] = { ...resources[subject][oldLevel] };
       delete resources[subject][oldLevel];
     }
@@ -2365,7 +3222,7 @@
     if (!resources[subject]) resources[subject] = {};
     
     quizData[subject][levelNumber] = [];
-    resources[subject][levelNumber] = { pdfs: [], videos: [], urls: [] };
+    resources[subject][levelNumber] = { pdfs: [], videos: [], urls: [], audios: [] };
     
     // Save level display name if provided
     if (levelName) {
@@ -2552,6 +3409,7 @@
         if (level.pdfs) resourceCount += level.pdfs.length;
         if (level.videos) resourceCount += level.videos.length;
         if (level.urls) resourceCount += level.urls.length;
+        if (level.audios) resourceCount += level.audios.length;
       });
       if (resourceCount > 0) {
         hasContent = true;
@@ -2677,7 +3535,7 @@
     updateSubjectSelects();
   }
   
-  // FIXED: Subject management list with working three dots menu
+  // FIXED: Subject management list with working three dots menu - IMPROVED POSITIONING
   function renderSubjectManagementList() {
     const container = document.getElementById('subjectListContainer');
     if (!container) return;
@@ -2708,7 +3566,7 @@
             </div>
           </div>
           <div class="relative">
-            <button class="subject-three-dots" onclick="openSubjectManagementMenu(event, '${subject}')">
+            <button class="subject-three-dots" onclick="openSubjectManagementMenu(event, '${subject}', this)">
               <i class="fas fa-ellipsis-v"></i>
             </button>
           </div>
@@ -2717,9 +3575,10 @@
     }).join('');
   }
   
-  // FIXED: Function to handle subject management menu
-  function openSubjectManagementMenu(event, subject) {
+  // FIXED: Function to handle subject management menu - IMPROVED POSITIONING
+  function openSubjectManagementMenu(event, subject, buttonElement) {
     event.stopPropagation();
+    event.preventDefault();
     
     // Close any existing subject dropdown menus
     const existingMenus = document.querySelectorAll('.subject-dropdown-menu');
@@ -2744,17 +3603,41 @@
       </button>
     `;
     
-    // Position the menu near the button
-    const buttonRect = event.target.closest('button').getBoundingClientRect();
-    menu.style.top = `${buttonRect.bottom + window.scrollY}px`;
-    menu.style.left = `${buttonRect.right - 120 + window.scrollX}px`;
+    // Get button position
+    const buttonRect = buttonElement.getBoundingClientRect();
+    
+    // Calculate position - try to position it above if not enough space below
+    const menuHeight = 80; // Approximate height
+    const spaceBelow = window.innerHeight - buttonRect.bottom;
+    const spaceAbove = buttonRect.top;
+    
+    let top, left;
+    
+    if (spaceBelow < menuHeight && spaceAbove >= menuHeight) {
+      // Position above the button
+      top = buttonRect.top + window.scrollY - menuHeight;
+    } else {
+      // Position below the button (default)
+      top = buttonRect.bottom + window.scrollY;
+    }
+    
+    // Position horizontally aligned with the right side of the button
+    left = buttonRect.right + window.scrollX - 120; // 120px is the menu width
+    
+    // Ensure it doesn't go off-screen
+    if (left < 10) left = 10;
+    
+    menu.style.position = 'fixed';
+    menu.style.top = `${top}px`;
+    menu.style.left = `${left}px`;
+    menu.style.zIndex = '10000';
     
     document.body.appendChild(menu);
     
     // Close the menu when clicking outside
     setTimeout(() => {
       const closeHandler = function(e) {
-        if (!menu.contains(e.target) && !event.target.contains(e.target)) {
+        if (!menu.contains(e.target) && !buttonElement.contains(e.target)) {
           menu.remove();
           document.removeEventListener('click', closeHandler);
         }
@@ -2798,10 +3681,15 @@
     }
     
     quizApp.innerHTML = `
-      <div class="flex flex-col h-full">
+      <div class="flex flex-col h-full has-sign-out">
         <!-- Back Button -->
         <button onclick="goBack()" class="back-button">
           <i class="fas fa-arrow-left"></i>
+        </button>
+        
+        <!-- Sign Out Button -->
+        <button onclick="handleSignOut()" class="sign-out-button-small" title="Sign Out">
+          <i class="fas fa-sign-out-alt"></i>
         </button>
         
         <div class="text-center mb-6">
@@ -2831,6 +3719,7 @@
                     if (level.pdfs) resourceCount += level.pdfs.length;
                     if (level.videos) resourceCount += level.videos.length;
                     if (level.urls) resourceCount += level.urls.length;
+                    if (level.audios) resourceCount += level.audios.length;
                   });
                 }
                 
@@ -2893,10 +3782,34 @@
       </button>
     `;
     
-    // Position the dropdown
+    // Get button position
     const buttonRect = button.getBoundingClientRect();
-    dropdown.style.top = `${buttonRect.bottom + window.scrollY}px`;
-    dropdown.style.left = `${buttonRect.right - 120 + window.scrollX}px`;
+    
+    // Calculate position - try to position it above if not enough space below
+    const menuHeight = 80; // Approximate height
+    const spaceBelow = window.innerHeight - buttonRect.bottom;
+    const spaceAbove = buttonRect.top;
+    
+    let top, left;
+    
+    if (spaceBelow < menuHeight && spaceAbove >= menuHeight) {
+      // Position above the button
+      top = buttonRect.top + window.scrollY - menuHeight;
+    } else {
+      // Position below the button (default)
+      top = buttonRect.bottom + window.scrollY;
+    }
+    
+    // Position horizontally aligned with the right side of the button
+    left = buttonRect.right + window.scrollX - 120; // 120px is the menu width
+    
+    // Ensure it doesn't go off-screen
+    if (left < 10) left = 10;
+    
+    dropdown.style.position = 'fixed';
+    dropdown.style.top = `${top}px`;
+    dropdown.style.left = `${left}px`;
+    dropdown.style.zIndex = '10000';
     
     document.body.appendChild(dropdown);
     
@@ -2996,10 +3909,13 @@
           resources[subject] = {};
         }
         
-        // Ensure each level has urls array
+        // Ensure each level has all resource arrays
         for (let level = 1; level <= 10; level++) {
-          if (resources[subject][level] && !resources[subject][level].urls) {
-            resources[subject][level].urls = [];
+          if (resources[subject][level]) {
+            if (!resources[subject][level].pdfs) resources[subject][level].pdfs = [];
+            if (!resources[subject][level].videos) resources[subject][level].videos = [];
+            if (!resources[subject][level].urls) resources[subject][level].urls = [];
+            if (!resources[subject][level].audios) resources[subject][level].audios = [];
           }
         }
       });
@@ -3394,27 +4310,34 @@
     renderAuthScreen();
   }
 
-  // FIX 2: Updated Welcome screen with scrollbar
+  // FIX 2: RESTORED Welcome screen exactly as shown in the image
   function renderWelcomeScreen() {
     if (!isAuthenticated) return renderAuthScreen();
-    headerTitle.textContent = `Welcome, ${currentUser.name}!`;
     
-    // Show admin footer for admin users only
+    // Set header based on user
     if (currentUser.role === 'admin') {
-      document.getElementById('adminFooter').style.display = 'block';
+      headerTitle.textContent = `Welcome, Admin User!`;
     } else {
-      document.getElementById('adminFooter').style.display = 'none';
+      headerTitle.textContent = `Welcome, ${currentUser.name}!`;
     }
     
+    // Hide admin footer in welcome screen (we have the sign out button separately)
+    document.getElementById('adminFooter').style.display = 'none';
+    
+    // Check if user is admin or student
+    const isAdmin = currentUser.role === 'admin';
+    
     quizApp.innerHTML = `
-      <div class="flex flex-col h-full">
+      <div class="flex flex-col h-full has-sign-out">
+        <!-- Sign Out Button - Always shown for both admin and student -->
+        <button onclick="handleSignOut()" class="sign-out-button">
+          <i class="fas fa-sign-out-alt mr-1"></i> Sign Out
+        </button>
+        
         <div class="flex justify-between items-center px-2 mb-4">
            <button onclick="renderStudentProfile()" class="btn-primary px-4 py-2 rounded-xl text-sm flex items-center">
               <i class="fas fa-user-graduate mr-2"></i> My Profile
            </button>
-           <div class="text-xs font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
-              <i class="fas fa-star mr-1"></i> Student
-           </div>
         </div>
         
         <!-- FIX 2: Added scroll container for subjects -->
@@ -3431,11 +4354,11 @@
           </div>
         </div>
           
-        ${currentUser.role === 'admin' ? `
+        ${isAdmin ? `
         <div class="admin-tools-scroll-container">
           <div class="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-200 shadow-sm">
-            <p class="text-xs text-blue-700 uppercase font-bold text-center mb-3">Admin Tools</p>
-            <!-- FIX 3: Equal size admin tools using grid -->
+            <p class="text-xs text-blue-700 uppercase font-bold text-center mb-3">ADMIN TOOLS</p>
+            <!-- FIX 1: Centered admin tools grid -->
             <div class="admin-tools-grid">
               <button onclick="openBulkUploader()" class="admin-tool-btn btn-primary">
                 <i class="fas fa-file-upload mb-1 text-lg"></i> Bulk
@@ -3455,6 +4378,20 @@
             </div>
           </div>
         </div>
+        
+        <!-- FIX 7: Admin Dashboard Footer Button - Side by side buttons -->
+        <div id="adminWelcomeFooter" class="mt-4">
+          <div class="footer-buttons-container">
+            <button type="button" onclick="handleSignOut()" class="btn-secondary py-3 rounded-xl shadow-lg transition-all duration-300 text-sm flex items-center justify-center">
+              <i class="fas fa-sign-out-alt mr-2 text-lg"></i>
+              Sign Out
+            </button>
+            <button type="button" onclick="openModal('dashboard')" class="btn-danger py-3 rounded-xl shadow-lg transition-all duration-300 text-sm flex items-center justify-center">
+              <i class="fas fa-cogs mr-2 text-lg"></i>
+              Admin Dashboard
+            </button>
+          </div>
+        </div>
         ` : ''}
       </div>
     `;
@@ -3469,21 +4406,22 @@
     if (!isAuthenticated) return renderAuthScreen();
     headerTitle.textContent = "My Profile";
     
-    // Show admin footer for admin users only
-    if (currentUser.role === 'admin') {
-      document.getElementById('adminFooter').style.display = 'block';
-    } else {
-      document.getElementById('adminFooter').style.display = 'none';
-    }
+    // Hide admin footer in student profile
+    document.getElementById('adminFooter').style.display = 'none';
     
     const history = currentUser.testHistory || [];
     const avgScore = history.length > 0 ? Math.round(history.reduce((a, b) => a + (b.score || 0), 0) / history.length) : 0;
 
     quizApp.innerHTML = `
-      <div class="flex flex-col h-full">
+      <div class="flex flex-col h-full has-sign-out">
         <!-- Back Button -->
         <button onclick="goBack()" class="back-button">
           <i class="fas fa-arrow-left"></i>
+        </button>
+        
+        <!-- Sign Out Button -->
+        <button onclick="handleSignOut()" class="sign-out-button-small" title="Sign Out">
+          <i class="fas fa-sign-out-alt"></i>
         </button>
         
         <div class="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-2xl p-5 shadow-sm mb-6 flex items-center space-x-5">
@@ -3535,7 +4473,7 @@
     `;
   }
 
-  // FIXED: Updated renderSubjectLevels with Add Level button and scrollbars
+  // FIXED: Updated renderSubjectLevels with Add Level button and scrollbars and Sign Out button
   function renderSubjectLevels(subject) {
     if (!isAuthenticated) return renderAuthScreen();
     currentSubject = subject;
@@ -3568,7 +4506,7 @@
     if (resources[subject]) {
       Object.keys(resources[subject]).forEach(level => {
         const levelRes = resources[subject][level];
-        if (levelRes && (levelRes.pdfs?.length > 0 || levelRes.videos?.length > 0 || levelRes.urls?.length > 0)) {
+        if (levelRes && (levelRes.pdfs?.length > 0 || levelRes.videos?.length > 0 || levelRes.urls?.length > 0 || levelRes.audios?.length > 0)) {
           existingLevels.add(parseInt(level));
         }
       });
@@ -3581,10 +4519,15 @@
     const displayLevels = levels.length > 0 ? levels : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     
     quizApp.innerHTML = `
-      <div class="flex flex-col h-full">
+      <div class="flex flex-col h-full has-sign-out">
         <!-- Back Button -->
         <button onclick="goBack()" class="back-button">
           <i class="fas fa-arrow-left"></i>
+        </button>
+        
+        <!-- Sign Out Button -->
+        <button onclick="handleSignOut()" class="sign-out-button-small" title="Sign Out">
+          <i class="fas fa-sign-out-alt"></i>
         </button>
         
         ${currentUser.role === 'admin' ? `
@@ -3602,8 +4545,9 @@
               const progress = currentUser.levelProgress?.[subject]?.[level] || 0;
               const pdfs = getResList(level, 'pdfs');
               const videos = getResList(level, 'videos');
+              const audios = getResList(level, 'audios');
               const urls = subRes[level]?.urls || [];
-              const hasRes = pdfs.length > 0 || videos.length > 0 || urls.length > 0;
+              const hasRes = pdfs.length > 0 || videos.length > 0 || urls.length > 0 || audios.length > 0;
               const hasExam = count > 0;
               const displayName = getLevelDisplayName(subject, level);
               
@@ -3645,12 +4589,13 @@
             ${displayLevels.map(level => {
               const pdfs = getResList(level, 'pdfs');
               const videos = getResList(level, 'videos');
+              const audios = getResList(level, 'audios');
               const urls = subRes[level]?.urls || [];
               const examQuestions = quizData[subject]?.[level] || [];
               const hasExam = examQuestions.length > 0;
-              const hasResources = pdfs.length > 0 || videos.length > 0 || urls.length > 0;
+              const hasResources = pdfs.length > 0 || videos.length > 0 || urls.length > 0 || audios.length > 0;
               
-              if(!hasExam && !hasResources) return '';
+      if(!hasExam && !hasResources) return '';
               
               const displayName = getLevelDisplayName(subject, level);
               
@@ -3698,10 +4643,23 @@
                       </div>
                     `).join('')}
                     
+                    <!-- ========== UPDATE 2: Audio Resources ========== -->
+                    ${audios.map((audio, idx) => `
+                      <div class="audio-resource-item w-full flex items-center hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 text-purple-700 relative">
+                        <button type="button" onclick="playAudioResource('${audio.id}', '${audio.name}', '${subject}', ${level})" class="flex-grow text-left flex items-center truncate">
+                          <i class="fas fa-music mr-3 w-5 text-purple-500"></i> 
+                          <span class="truncate w-36">${audio.name}</span>
+                        </button>
+                        ${currentUser.role === 'admin' ? `
+                        <button type="button" onclick="event.stopPropagation(); openGlobalMenu(this, event, '${subject}', ${level}, 'audios', ${idx})" class="text-red-500 hover:text-red-700 px-2 font-bold text-lg hover:bg-red-50 p-1 rounded">⋮</button>
+                        ` : ''}
+                      </div>
+                    `).join('')}
+                    
                     ${urls.map((urlItem, idx) => `
-                      <div class="accordion-resource-item w-full flex items-center hover:bg-gradient-to-r hover:from-purple-50 hover:to-violet-50 text-purple-700 relative">
+                      <div class="accordion-resource-item w-full flex items-center hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 text-green-700 relative">
                         <button type="button" onclick="openUrlResource('${urlItem.url}')" class="flex-grow text-left flex items-center truncate">
-                          <i class="fas fa-link mr-3 w-5 text-purple-500"></i> 
+                          <i class="fas fa-link mr-3 w-5 text-green-500"></i> 
                           <span class="truncate w-36">${urlItem.name}</span>
                         </button>
                         ${currentUser.role === 'admin' ? `
@@ -3743,7 +4701,7 @@
     renderQuestion();
   }
 
-  // FIX 6: Updated renderQuestion with proper option layout
+  // FIX 6: Updated renderQuestion with proper option layout AND ADDED ESSAY INPUT
   function renderQuestion() {
     isAnswered = false; 
     selectedOptions = [];
@@ -3752,13 +4710,25 @@
     
     const q = questions[currentQuestionIndex];
     const isMulti = q.type === 'checkbox' || (q.type === 'checkbox' && q.options.length > 2);
+    const isEssay = q.type === 'essay';
     
     headerTitle.textContent = `${currentSubject} ${getLevelDisplayName(currentSubject, currentLevel)} | ${currentQuestionIndex + 1}/${questions.length}`;
     
     let optionsHtml = '';
     let buttonHtml = '';
 
-    if (isMulti) {
+    if (isEssay) {
+      // NEW: Essay question input for students
+      optionsHtml = `
+        <div class="space-y-3">
+          <textarea id="essayAnswer" rows="6" class="w-full p-4 border-2 border-blue-300 rounded-xl text-sm bg-white" placeholder="Type your answer here..."></textarea>
+        </div>`;
+      buttonHtml = `
+        <div class="flex justify-between border-t border-blue-200 pt-5 mt-3">
+          <button onclick="prevQuestion()" ${currentQuestionIndex === 0 ? 'disabled class="opacity-50 cursor-not-allowed text-gray-400 font-bold text-sm"' : 'class="text-blue-600 hover:text-blue-800 font-bold text-sm border border-blue-300 hover:border-blue-500 px-4 py-2 rounded-lg transition-all duration-300"'}><i class="fas fa-arrow-left mr-1"></i> Prev</button>
+          <button id="essaySubmitBtn" onclick="submitEssayAnswer()" class="btn-primary px-6 py-3 rounded-xl text-sm shadow-lg">Submit Answer</button>
+        </div>`;
+    } else if (isMulti) {
        optionsHtml = `
         <div class="space-y-3">
           ${q.options.map((opt, i) => `
@@ -3790,10 +4760,15 @@
     }
 
     quizApp.innerHTML = `
-      <div class="flex flex-col h-full justify-between">
+      <div class="flex flex-col h-full justify-between has-sign-out">
         <!-- Back Button -->
         <button onclick="goBackFromQuiz()" class="back-button">
           <i class="fas fa-arrow-left"></i>
+        </button>
+        
+        <!-- Sign Out Button -->
+        <button onclick="handleSignOut()" class="sign-out-button-small" title="Sign Out">
+          <i class="fas fa-sign-out-alt"></i>
         </button>
         
         <div>
@@ -3801,14 +4776,41 @@
             <p class="text-xl font-bold text-gray-800 text-center">${q.question}</p>
           </div>
           ${optionsHtml}
-          ${q.hint ? `<p class="mt-5 text-sm text-blue-500 text-center italic bg-blue-50 p-3 rounded-lg border border-blue-200"><i class="fas fa-lightbulb mr-2 text-yellow-500"></i> Hint: ${q.hint}</p>` : ''}
+          <!-- REMOVED: Hint text for all questions -->
         </div>
         ${buttonHtml}
       </div>`;
   }
 
+  // NEW: Function to handle essay answer submission
+  function submitEssayAnswer() {
+    if (isAnswered) return;
+    isAnswered = true;
+    
+    const essayAnswer = document.getElementById('essayAnswer').value.trim();
+    const q = quizData[currentSubject][currentLevel][currentQuestionIndex];
+    
+    // For essay questions, we'll just store the answer and move on
+    // You could add logic here to compare with expected answer if needed
+    console.log("Essay answer submitted:", essayAnswer);
+    
+    // Change button to show next
+    const essayBtn = document.getElementById('essaySubmitBtn');
+    essayBtn.textContent = "Next →";
+    essayBtn.classList.remove('btn-primary');
+    essayBtn.classList.add('bg-gradient-to-r', 'from-purple-500', 'to-pink-500', 'hover:from-purple-600', 'hover:to-pink-600');
+    essayBtn.onclick = nextQuestion;
+    
+    // Optional: You could store the essay answer for later review
+    if (!q.userEssayAnswer) {
+      q.userEssayAnswer = essayAnswer;
+    }
+  }
+
   function goBackFromQuiz() {
     if (confirm("Exit quiz? Your progress will not be saved.")) {
+      // FIX 3: Stop the timer when exam is canceled
+      stopTimer();
       renderSubjectLevels(currentSubject);
     }
   }
@@ -3992,10 +4994,15 @@
 
     headerTitle.textContent = "Quiz Complete";
     quizApp.innerHTML = `
-      <div class="flex flex-col h-full justify-center text-center space-y-6">
+      <div class="flex flex-col h-full justify-center text-center space-y-6 has-sign-out">
         <!-- Back Button -->
         <button onclick="goBack()" class="back-button">
           <i class="fas fa-arrow-left"></i>
+        </button>
+        
+        <!-- Sign Out Button -->
+        <button onclick="handleSignOut()" class="sign-out-button-small" title="Sign Out">
+          <i class="fas fa-sign-out-alt"></i>
         </button>
         
         <div>
@@ -4068,7 +5075,7 @@
     }
   }
   
-  // FIX 3 & 8: Updated renderAdminDashboard with scroll container and equal size admin tools
+  // FIX 3 & 8: Updated renderAdminDashboard with scroll container and equal size admin tools - CENTERED
   function renderAdminDashboard() {
     headerTitle.textContent = "Admin Dashboard";
     
@@ -4108,7 +5115,7 @@
             </div>
           </div>
 
-          <!-- FIX 3: Equal size admin tools using grid -->
+          <!-- FIX 1: Centered admin tools grid -->
           <div class="mb-6">
             <div class="admin-tools-grid">
               <button type="button" onclick="openBulkUploader()" class="admin-tool-btn btn-primary">
@@ -4176,7 +5183,8 @@
             </div>
           </div>
         </div>
-      </div>`;
+      </div>
+    `;
   }
 
   function showSubjectSummary() {
@@ -4194,6 +5202,7 @@
           if (level.pdfs) resourceCount += level.pdfs.length;
           if (level.videos) resourceCount += level.videos.length;
           if (level.urls) resourceCount += level.urls.length;
+          if (level.audios) resourceCount += level.audios.length;
         });
       }
       
@@ -4603,9 +5612,10 @@
     const level = parseInt(document.getElementById('resourceLevel').value);
     const pdf = document.getElementById('pdfFileInput').files[0];
     const video = document.getElementById('videoFileInput').files[0];
+    const audio = document.getElementById('audioFileInput').files[0];
     const status = document.getElementById('resourceUploadStatus');
 
-    if (!pdf && !video && urlInputs.every(url => !url.name.trim() && !url.url.trim())) {
+    if (!pdf && !video && !audio && urlInputs.every(url => !url.name.trim() && !url.url.trim())) {
       return alertMessage("Select a file or add a URL first", "bg-gradient-to-r from-red-500 to-pink-500");
     }
     
@@ -4614,10 +5624,11 @@
 
     try {
       if (!resources[subject]) resources[subject] = {};
-      if (!resources[subject][level]) resources[subject][level] = { pdfs: [], videos: [], urls: [] };
+      if (!resources[subject][level]) resources[subject][level] = { pdfs: [], videos: [], urls: [], audios: [] };
       if (!resources[subject][level].pdfs) resources[subject][level].pdfs = [];
       if (!resources[subject][level].videos) resources[subject][level].videos = [];
       if (!resources[subject][level].urls) resources[subject][level].urls = [];
+      if (!resources[subject][level].audios) resources[subject][level].audios = [];
 
       const date = new Date().toISOString();
 
@@ -4630,6 +5641,13 @@
         const id = `vid_${Date.now()}`;
         await saveFileToDB(video, id);
         resources[subject][level].videos.unshift({ id: id, name: video.name, date: date });
+      }
+      
+      // ========== UPDATE 2: Save Audio File ==========
+      if (audio) {
+        const id = `audio_${Date.now()}`;
+        await saveFileToDB(audio, id);
+        resources[subject][level].audios.unshift({ id: id, name: audio.name, date: date });
       }
       
       // Save URLs
@@ -4653,6 +5671,7 @@
       // Reset file inputs
       document.getElementById('pdfFileInput').value = '';
       document.getElementById('videoFileInput').value = '';
+      document.getElementById('audioFileInput').value = '';
       resetUrlInputs();
       
     } catch (e) {
@@ -4859,6 +5878,7 @@
   window.renderSubjectPage = renderSubjectPage;
   window.startQuiz = startQuiz;
   window.selectAnswer = selectAnswer;
+  window.submitEssayAnswer = submitEssayAnswer; // NEW: Added essay answer submission
   window.nextQuestion = nextQuestion;
   window.prevQuestion = prevQuestion;
   window.renderAdminDashboard = renderAdminDashboard;
@@ -4934,8 +5954,17 @@
   window.openAddLevelModal = openAddLevelModal;
   window.closeAddLevelModal = closeAddLevelModal;
   window.saveNewLevel = saveNewLevel;
-  // FIXED: Subject management menu function
+  // FIXED: Subject management menu function - UPDATED WITH BETTER POSITIONING
   window.openSubjectManagementMenu = openSubjectManagementMenu;
+  // ========== UPDATE 2: Audio Player Functions ==========
+  window.playAudioResource = playAudioResource;
+  window.playPauseAudio = playPauseAudio;
+  window.rewindAudio = rewindAudio;
+  window.forwardAudio = forwardAudio;
+  window.updateAudioProgress = updateAudioProgress;
+  window.downloadAudio = downloadAudio;
+  window.createAudioPlayer = createAudioPlayer;
+  window.formatTime = formatTime;
 </script>
 </body>
 </html>
